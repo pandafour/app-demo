@@ -21,14 +21,17 @@
     />
     <style>
       :root {
-        --bg: #f6f1e8;
-        --paper: #fffaf3;
+        --bg: #fff4d9;
+        --paper: #fffdf7;
         --ink: #1f2937;
         --muted: #5b6470;
         --terracotta: #e76f51;
         --teal: #264653;
         --mint: #2a9d8f;
         --gold: #f4a261;
+        --sky: #72c9f3;
+        --berry: #ef476f;
+        --lemon: #ffd166;
         --line: rgba(38, 70, 83, 0.14);
       }
 
@@ -43,9 +46,11 @@
 
       .reveal .slide-background {
         background:
-          radial-gradient(circle at top left, rgba(244, 162, 97, 0.2), transparent 28%),
-          radial-gradient(circle at bottom right, rgba(42, 157, 143, 0.18), transparent 26%),
-          linear-gradient(135deg, #fffaf3 0%, #f6f1e8 100%);
+          radial-gradient(circle at top left, rgba(255, 209, 102, 0.42), transparent 24%),
+          radial-gradient(circle at top right, rgba(114, 201, 243, 0.28), transparent 26%),
+          radial-gradient(circle at bottom right, rgba(42, 157, 143, 0.22), transparent 26%),
+          radial-gradient(circle at bottom left, rgba(239, 71, 111, 0.14), transparent 22%),
+          linear-gradient(135deg, #fffdf7 0%, #fff4d9 100%);
       }
 
       .reveal h1,
@@ -106,10 +111,10 @@
       .title-panel,
       .card,
       .quote-panel {
-        background: rgba(255, 255, 255, 0.72);
+        background: rgba(255, 255, 255, 0.78);
         border: 1px solid var(--line);
         border-radius: 28px;
-        box-shadow: 0 18px 60px rgba(38, 70, 83, 0.08);
+        box-shadow: 0 18px 60px rgba(38, 70, 83, 0.1);
         backdrop-filter: blur(8px);
       }
 
@@ -208,6 +213,18 @@
 
       .card {
         padding: 1.1rem 1.2rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 8px;
+        background: linear-gradient(90deg, var(--terracotta), var(--gold), var(--mint), var(--sky));
       }
 
       .card h3 {
@@ -240,7 +257,7 @@
         margin-bottom: 0.8rem;
         padding: 0.9rem 1rem;
         border-radius: 18px;
-        background: rgba(255, 255, 255, 0.68);
+        background: rgba(255, 255, 255, 0.74);
         border: 1px solid var(--line);
       }
 
@@ -254,7 +271,7 @@
       .timeline-step {
         padding: 1rem;
         border-radius: 20px;
-        background: rgba(255, 255, 255, 0.76);
+        background: rgba(255, 255, 255, 0.82);
         border: 1px solid var(--line);
       }
 
@@ -295,7 +312,7 @@
         flex: 1;
         padding: 1rem;
         border-radius: 20px;
-        background: rgba(255, 255, 255, 0.72);
+        background: rgba(255, 255, 255, 0.82);
         border: 1px solid var(--line);
       }
 
@@ -311,6 +328,8 @@
       .quote-panel {
         padding: 2rem;
         margin-top: 1rem;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 243, 230, 0.88));
       }
 
       .quote-panel p {
@@ -343,6 +362,38 @@
         text-decoration: none;
         font-weight: 700;
         border: 1px solid var(--line);
+      }
+
+      .accent-warm::after {
+        background: linear-gradient(90deg, var(--terracotta), var(--gold));
+      }
+
+      .accent-cool::after {
+        background: linear-gradient(90deg, var(--sky), var(--mint));
+      }
+
+      .accent-pop::after {
+        background: linear-gradient(90deg, var(--berry), var(--gold), var(--sky));
+      }
+
+      .reveal .fragments .fragment,
+      .reveal .fragment {
+        transition: all 0.45s ease;
+      }
+
+      .reveal .fragment.fade-up {
+        opacity: 0;
+        transform: translateY(18px) scale(0.98);
+      }
+
+      .reveal .fragment.fade-up.visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      .reveal .fragment.highlight-pop.visible {
+        box-shadow: 0 18px 40px rgba(231, 111, 81, 0.18);
+        transform: translateY(-4px);
       }
 
       @media (max-width: 1100px) {
@@ -413,25 +464,25 @@
           <h2>About Me</h2>
           <div class="split">
             <ul class="bio-list">
-              <li><strong>Orchestra director</strong> at Bash/MSW</li>
-              <li><strong>I started making websites</strong> in the mid-1990s</li>
-              <li><strong>I have always liked tech</strong> and trying new ideas</li>
-              <li><strong>Music and coding</strong> both take practice, patience, and creativity</li>
+              <li class="fragment fade-up"><strong>Orchestra director</strong> at Bash/MSW</li>
+              <li class="fragment fade-up"><strong>I started making websites</strong> in the mid-1990s</li>
+              <li class="fragment fade-up"><strong>I have always liked tech</strong> and trying new ideas</li>
+              <li class="fragment fade-up"><strong>Music and coding</strong> both take practice, patience, and creativity</li>
             </ul>
             <div class="grid-2">
-              <div class="card">
+              <div class="card accent-warm fragment fade-up">
                 <h3>Then</h3>
                 <p>I learned by making stuff and seeing what worked.</p>
               </div>
-              <div class="card">
+              <div class="card accent-cool fragment fade-up">
                 <h3>Now</h3>
                 <p>AI helps me make ideas real much faster.</p>
               </div>
-              <div class="card">
+              <div class="card accent-pop fragment fade-up">
                 <h3>Big idea</h3>
                 <p>You do not need a huge idea to make something useful.</p>
               </div>
-              <div class="card">
+              <div class="card accent-warm fragment fade-up">
                 <h3>Goal</h3>
                 <p>Make tech feel fun, useful, and possible.</p>
               </div>
@@ -443,25 +494,25 @@
           <div class="kicker">Use AI</div>
           <h2>Start with a Problem</h2>
           <div class="grid-3">
-            <div class="card">
+            <div class="card accent-warm fragment fade-up">
               <h3>Fix something annoying</h3>
               <p>Start with something that bugs you, wastes time, or is easy to forget.</p>
             </div>
-            <div class="card">
+            <div class="card accent-cool fragment fade-up">
               <h3>Make something small</h3>
               <p>It does not need to be a full app. It could be a small website or script.</p>
             </div>
-            <div class="card">
+            <div class="card accent-pop fragment fade-up">
               <h3>Useful beats huge</h3>
               <p>A small tool that really helps is better than a giant project you never finish.</p>
             </div>
           </div>
           <div class="grid-2" style="margin-top: 1rem;">
-            <div class="card">
+            <div class="card accent-warm fragment fade-up">
               <h3>Example: Dryer alert</h3>
               <p>A tiny device could feel the dryer shaking and tell me when it stops.</p>
             </div>
-            <div class="card">
+            <div class="card accent-cool fragment fade-up">
               <h3>Example: Bills automation</h3>
               <p>A script could read bill emails and put them into my budget app each morning.</p>
             </div>
@@ -472,24 +523,24 @@
           <div class="kicker">Platforms</div>
           <h2>What Are Your Options?</h2>
           <div class="grid-4">
-            <div class="card">
+            <div class="card accent-warm fragment fade-up">
               <h3>Apple</h3>
               <p>Apps for iPhone and iPad are often made with <strong>Swift</strong>.</p>
             </div>
-            <div class="card">
+            <div class="card accent-cool fragment fade-up">
               <h3>Android</h3>
               <p>Apps for Android are often made with <strong>Kotlin</strong>.</p>
             </div>
-            <div class="card">
+            <div class="card accent-pop fragment fade-up">
               <h3>Web</h3>
               <p>Websites use <strong>HTML</strong>, <strong>CSS</strong>, and <strong>JavaScript</strong>.</p>
             </div>
-            <div class="card">
+            <div class="card accent-warm fragment fade-up">
               <h3>Cross-platform</h3>
               <p>Tools like <strong>React Native</strong> and <strong>Flutter</strong> try to make one app work in more places.</p>
             </div>
           </div>
-          <div class="quote-panel">
+          <div class="quote-panel fragment fade-up">
             <p>
               If you want the easiest thing to share, start with the web. If you want a real phone app, there are more steps.
             </p>
@@ -501,19 +552,19 @@
           <h2>Putting an App in the Store</h2>
           <div class="grid-2">
             <div class="grid-2">
-              <div class="card metric">
+              <div class="card metric accent-warm fragment fade-up">
                 <div class="metric-number">$99</div>
                 <div class="metric-label">Apple developer cost each year</div>
               </div>
-              <div class="card metric">
+              <div class="card metric accent-cool fragment fade-up">
                 <div class="metric-number">$25</div>
                 <div class="metric-label">Google Play cost one time</div>
               </div>
             </div>
             <ul class="clean-list">
-              <li>Apple makes you pay every year to put apps in the App Store.</li>
-              <li>Google Play has a one-time sign-up cost, but still has rules and checks.</li>
-              <li>Both stores want screenshots, app info, and other details before you can publish.</li>
+              <li class="fragment fade-up">Apple makes you pay every year to put apps in the App Store.</li>
+              <li class="fragment fade-up">Google Play has a one-time sign-up cost, but still has rules and checks.</li>
+              <li class="fragment fade-up">Both stores want screenshots, app info, and other details before you can publish.</li>
             </ul>
           </div>
           <p class="tiny">Current summary slide content prepared on April 14, 2026.</p>
@@ -523,20 +574,20 @@
           <div class="kicker">Testing</div>
           <h2>How Testing Works</h2>
           <div class="pathway">
-            <div class="step">
+            <div class="step fragment fade-up">
               <small>Apple</small>
               <p><strong>TestFlight</strong> lets people try your app before it is in the App Store.</p>
             </div>
-            <div class="step">
+            <div class="step fragment fade-up">
               <small>Google</small>
               <p>Google has test groups before your app goes public.</p>
             </div>
-            <div class="step">
+            <div class="step fragment fade-up">
               <small>Important</small>
               <p>For brand-new personal Google Play accounts, you need <strong>12 testers for 14 days</strong> before full release.</p>
             </div>
           </div>
-          <div class="quote-panel">
+          <div class="quote-panel fragment fade-up">
             <p>
               Testing is where you find the weird bugs, confusing parts, and stuff that did not work the way you thought.
             </p>
@@ -547,33 +598,33 @@
           <div class="kicker">Workflow</div>
           <h2>What Making Something with AI Looks Like</h2>
           <div class="timeline">
-            <div class="timeline-step">
+            <div class="timeline-step fragment fade-up">
               <span>1</span>
               <p>Pick one problem.</p>
             </div>
-            <div class="timeline-step">
+            <div class="timeline-step fragment fade-up">
               <span>2</span>
               <p>Ask AI to help make a small first version.</p>
             </div>
-            <div class="timeline-step">
+            <div class="timeline-step fragment fade-up">
               <span>3</span>
               <p>Make the code or layout.</p>
             </div>
-            <div class="timeline-step">
+            <div class="timeline-step fragment fade-up">
               <span>4</span>
               <p>Test it and see what breaks.</p>
             </div>
-            <div class="timeline-step">
+            <div class="timeline-step fragment fade-up">
               <span>5</span>
               <p>Fix it and try again.</p>
             </div>
           </div>
           <div class="grid-2" style="margin-top: 1rem;">
-            <div class="card">
+            <div class="card accent-cool fragment fade-up">
               <h3>AI helps a lot</h3>
               <p>It can help with ideas, code, fixing errors, and design.</p>
             </div>
-            <div class="card">
+            <div class="card accent-pop fragment fade-up">
               <h3>But it is not magic</h3>
               <p>You still have to test, think, and notice when something is wrong.</p>
             </div>
@@ -585,17 +636,17 @@
           <h2>Things That Can Be Hard</h2>
           <div class="grid-2">
             <ul class="clean-list">
-              <li>Store rules</li>
-              <li>Phone permissions</li>
-              <li>AI code that is close, but not right</li>
+              <li class="fragment fade-up">Store rules</li>
+              <li class="fragment fade-up">Phone permissions</li>
+              <li class="fragment fade-up">AI code that is close, but not right</li>
             </ul>
             <ul class="clean-list">
-              <li>Apps acting different on different devices</li>
-              <li>Problems you did not think about at first</li>
-              <li>Projects taking longer than you hoped</li>
+              <li class="fragment fade-up">Apps acting different on different devices</li>
+              <li class="fragment fade-up">Problems you did not think about at first</li>
+              <li class="fragment fade-up">Projects taking longer than you hoped</li>
             </ul>
           </div>
-          <div class="quote-panel">
+          <div class="quote-panel fragment fade-up">
             <p>
               The goal is not to be perfect. The goal is to keep learning and keep building.
             </p>
@@ -607,15 +658,15 @@
           <h2>Questions</h2>
           <p class="question">What is one problem in your life that you would want to fix with AI?</p>
           <div class="grid-3" style="margin-top: 1.2rem;">
-            <div class="card">
+            <div class="card accent-warm fragment fade-up">
               <h3>Maybe a website</h3>
               <p>A simple page anyone can open.</p>
             </div>
-            <div class="card">
+            <div class="card accent-cool fragment fade-up">
               <h3>Maybe a script</h3>
               <p>A small tool that saves time.</p>
             </div>
-            <div class="card">
+            <div class="card accent-pop fragment fade-up">
               <h3>Maybe an app</h3>
               <p>Something that starts small and grows later.</p>
             </div>
