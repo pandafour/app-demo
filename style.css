@@ -1,0 +1,207 @@
+:root {
+  color-scheme: light;
+  --bg: #f5efe6;
+  --bg-accent: #ffd8a8;
+  --panel: rgba(255, 252, 247, 0.88);
+  --text: #1f2937;
+  --muted: #6b7280;
+  --primary: #c2410c;
+  --primary-dark: #7c2d12;
+  --success: #15803d;
+  --error: #b91c1c;
+  --border: rgba(124, 45, 18, 0.12);
+  --shadow: 0 24px 60px rgba(124, 45, 18, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "DM Sans", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(255, 216, 168, 0.9), transparent 36%),
+    radial-gradient(circle at bottom right, rgba(194, 65, 12, 0.16), transparent 28%),
+    linear-gradient(135deg, #fffaf4 0%, var(--bg) 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(124, 45, 18, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 45, 18, 0.03) 1px, transparent 1px);
+  background-size: 22px 22px;
+  pointer-events: none;
+}
+
+.app-shell {
+  width: min(920px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 4rem 0;
+}
+
+.hero {
+  margin-bottom: 1.5rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  line-height: 0.95;
+}
+
+.subtitle {
+  max-width: 48rem;
+  margin: 1rem 0 0;
+  color: var(--muted);
+  font-size: 1.08rem;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+  padding: 1.5rem;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-card {
+  padding: 1rem 1.1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(124, 45, 18, 0.08);
+}
+
+.stat-label {
+  display: block;
+  color: var(--muted);
+  font-size: 0.86rem;
+  margin-bottom: 0.4rem;
+}
+
+.stat-card strong {
+  font-size: 1.8rem;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.prompt-box {
+  min-height: 170px;
+  padding: 1.2rem;
+  border-radius: 22px;
+  background: #fffdf9;
+  border: 1px solid rgba(124, 45, 18, 0.1);
+  font-size: 1.15rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.prompt-box span.correct {
+  color: var(--success);
+}
+
+.prompt-box span.incorrect {
+  color: var(--error);
+  background: rgba(185, 28, 28, 0.12);
+  border-radius: 4px;
+}
+
+.prompt-box span.current {
+  background: rgba(194, 65, 12, 0.18);
+  border-radius: 4px;
+}
+
+.input-label {
+  display: inline-block;
+  margin-bottom: 0.6rem;
+  font-weight: 700;
+}
+
+textarea {
+  width: 100%;
+  padding: 1rem 1.1rem;
+  border-radius: 22px;
+  border: 1px solid rgba(124, 45, 18, 0.16);
+  font: inherit;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.96);
+  resize: vertical;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: rgba(194, 65, 12, 0.42);
+  box-shadow: 0 0 0 5px rgba(194, 65, 12, 0.12);
+  transform: translateY(-1px);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.9rem 1.2rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(124, 45, 18, 0.24);
+}
+
+button:hover {
+  filter: brightness(1.05);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 680px) {
+  .app-shell {
+    width: min(100% - 1rem, 920px);
+    padding: 1.2rem 0 2rem;
+  }
+
+  .panel {
+    padding: 1rem;
+    border-radius: 22px;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .prompt-box {
+    min-height: 220px;
+  }
+}
