@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Building Useful Apps with AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css"
+      id="theme"
+    />
+    <style>
+      :root {
+        --bg: #f6f1e8;
+        --paper: #fffaf3;
+        --ink: #1f2937;
+        --muted: #5b6470;
+        --terracotta: #e76f51;
+        --teal: #264653;
+        --mint: #2a9d8f;
+        --gold: #f4a261;
+        --line: rgba(38, 70, 83, 0.14);
+      }
+
+      .reveal {
+        font-family: "DM Sans", sans-serif;
+        color: var(--ink);
+      }
+
+      .reveal .slides {
+        text-align: left;
+      }
+
+      .reveal .slide-background {
+        background:
+          radial-gradient(circle at top left, rgba(244, 162, 97, 0.2), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(42, 157, 143, 0.18), transparent 26%),
+          linear-gradient(135deg, #fffaf3 0%, #f6f1e8 100%);
+      }
+
+      .reveal h1,
+      .reveal h2,
+      .reveal h3 {
+        font-family: "Space Grotesk", sans-serif;
+        color: var(--teal);
+        letter-spacing: -0.03em;
+        text-transform: none;
+      }
+
+      .reveal h1 {
+        font-size: 3.2rem;
+        line-height: 0.98;
+        margin-bottom: 1rem;
+      }
+
+      .reveal h2 {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+      }
+
+      .reveal p,
+      .reveal li {
+        font-size: 1.1rem;
+        line-height: 1.55;
+      }
+
+      .reveal ul {
+        display: block;
+        margin-left: 1.2rem;
+      }
+
+      .reveal strong {
+        color: var(--terracotta);
+      }
+
+      .kicker {
+        display: inline-block;
+        margin-bottom: 1rem;
+        padding: 0.35rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(231, 111, 81, 0.12);
+        color: var(--terracotta);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .title-layout {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .title-panel,
+      .card,
+      .quote-panel {
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        box-shadow: 0 18px 60px rgba(38, 70, 83, 0.08);
+        backdrop-filter: blur(8px);
+      }
+
+      .title-panel {
+        padding: 2rem;
+      }
+
+      .title-art {
+        min-height: 380px;
+        padding: 1.2rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .mock-device,
+      .mini-card {
+        border-radius: 24px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 248, 241, 0.9));
+        border: 1px solid rgba(38, 70, 83, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .mock-device::before,
+      .mini-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(231, 111, 81, 0.12), transparent 35%),
+          linear-gradient(90deg, transparent 0%, rgba(42, 157, 143, 0.1) 100%);
+      }
+
+      .mock-device {
+        min-height: 200px;
+      }
+
+      .mock-device.large {
+        grid-row: span 2;
+      }
+
+      .mock-device .bar,
+      .mini-card .bar {
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        height: 10px;
+        border-radius: 999px;
+        background: rgba(38, 70, 83, 0.12);
+      }
+
+      .mock-device .bar.one,
+      .mini-card .bar.one {
+        top: 22px;
+        width: 55%;
+      }
+
+      .mock-device .bar.two,
+      .mini-card .bar.two {
+        top: 46px;
+        width: 72%;
+      }
+
+      .mock-device .badge,
+      .mini-card .badge {
+        position: absolute;
+        left: 18px;
+        bottom: 20px;
+        padding: 0.35rem 0.7rem;
+        border-radius: 999px;
+        background: var(--teal);
+        color: white;
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .grid-4 {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .card {
+        padding: 1.1rem 1.2rem;
+      }
+
+      .card h3 {
+        font-size: 1.1rem;
+        margin: 0 0 0.5rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.98rem;
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 1.2rem;
+        align-items: start;
+      }
+
+      .bio-list,
+      .clean-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .bio-list li,
+      .clean-list li {
+        margin-bottom: 0.8rem;
+        padding: 0.9rem 1rem;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.68);
+        border: 1px solid var(--line);
+      }
+
+      .timeline {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.8rem;
+        margin-top: 1rem;
+      }
+
+      .timeline-step {
+        padding: 1rem;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.76);
+        border: 1px solid var(--line);
+      }
+
+      .timeline-step span {
+        display: inline-block;
+        margin-bottom: 0.6rem;
+        color: var(--terracotta);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .metric {
+        text-align: center;
+        padding: 1.4rem 1rem;
+      }
+
+      .metric-number {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 2.5rem;
+        color: var(--terracotta);
+      }
+
+      .metric-label {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .pathway {
+        display: flex;
+        align-items: stretch;
+        gap: 0.7rem;
+        margin-top: 1rem;
+      }
+
+      .pathway .step {
+        flex: 1;
+        padding: 1rem;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid var(--line);
+      }
+
+      .pathway .step small {
+        display: block;
+        margin-bottom: 0.45rem;
+        color: var(--terracotta);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 700;
+      }
+
+      .quote-panel {
+        padding: 2rem;
+        margin-top: 1rem;
+      }
+
+      .quote-panel p {
+        font-size: 1.5rem;
+        line-height: 1.35;
+        color: var(--teal);
+      }
+
+      .question {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 2.2rem;
+        color: var(--terracotta);
+        margin-top: 1rem;
+      }
+
+      .tiny {
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      .home-link {
+        position: fixed;
+        right: 20px;
+        top: 20px;
+        z-index: 40;
+        padding: 0.6rem 0.9rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.78);
+        color: var(--teal);
+        text-decoration: none;
+        font-weight: 700;
+        border: 1px solid var(--line);
+      }
+
+      @media (max-width: 1100px) {
+        .title-layout,
+        .split,
+        .grid-4,
+        .grid-3,
+        .grid-2,
+        .timeline {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .title-layout,
+        .split,
+        .grid-4,
+        .grid-3,
+        .grid-2,
+        .timeline,
+        .pathway {
+          grid-template-columns: 1fr;
+          display: grid;
+        }
+
+        .title-art {
+          min-height: 240px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="home-link" href="./index.html">Typing test</a>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <div class="title-layout">
+            <div class="title-panel">
+              <div class="kicker">Demo Day</div>
+              <h1>Building Useful Apps with AI</h1>
+              <p>
+                From tiny annoyances to real solutions, using websites, scripts,
+                and apps that students can actually imagine building.
+              </p>
+              <p class="tiny">Use arrow keys or spacebar to move through the deck.</p>
+            </div>
+            <div class="title-art">
+              <div class="mock-device large">
+                <div class="bar one"></div>
+                <div class="bar two"></div>
+                <div class="badge">website</div>
+              </div>
+              <div class="mini-card">
+                <div class="bar one"></div>
+                <div class="bar two"></div>
+                <div class="badge">script</div>
+              </div>
+              <div class="mini-card">
+                <div class="bar one"></div>
+                <div class="bar two"></div>
+                <div class="badge">app</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="kicker">Welcome</div>
+          <h2>About Me</h2>
+          <div class="split">
+            <ul class="bio-list">
+              <li><strong>Orchestra director</strong> at Bash/MSW</li>
+              <li><strong>Making websites since the mid-1990s</strong></li>
+              <li><strong>Interested in tech</strong>, experimenting, and useful ideas</li>
+              <li><strong>Music and programming</strong> both reward creativity, structure, and iteration</li>
+            </ul>
+            <div class="grid-2">
+              <div class="card">
+                <h3>Then</h3>
+                <p>Early websites, curiosity, learning by trying things.</p>
+              </div>
+              <div class="card">
+                <h3>Now</h3>
+                <p>AI makes it faster to turn an idea into something real.</p>
+              </div>
+              <div class="card">
+                <h3>Mindset</h3>
+                <p>You do not need a giant startup idea to build something worthwhile.</p>
+              </div>
+              <div class="card">
+                <h3>Goal</h3>
+                <p>Make technology feel approachable, useful, and creative.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="kicker">Use AI</div>
+          <h2>Start with a Problem, Not a Product</h2>
+          <div class="grid-3">
+            <div class="card">
+              <h3>Fix an annoyance</h3>
+              <p>AI is great when you start with something inconvenient, repetitive, or easy to forget.</p>
+            </div>
+            <div class="card">
+              <h3>Build small first</h3>
+              <p>The answer does not need to be a full app. It could be a tiny website or a script.</p>
+            </div>
+            <div class="card">
+              <h3>Useful beats huge</h3>
+              <p>A tiny tool that helps every week can matter more than a giant unfinished project.</p>
+            </div>
+          </div>
+          <div class="grid-2" style="margin-top: 1rem;">
+            <div class="card">
+              <h3>Example: Dryer alert</h3>
+              <p>An ESP32 plus a vibration sensor could detect when the dryer stops and send a notification.</p>
+            </div>
+            <div class="card">
+              <h3>Example: Bills automation</h3>
+              <p>A morning script could read bill emails and enter them into a budgeting app automatically.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="kicker">Platforms</div>
+          <h2>What Are Your Options?</h2>
+          <div class="grid-4">
+            <div class="card">
+              <h3>Apple</h3>
+              <p>Usually built with <strong>Swift</strong> or <strong>SwiftUI</strong>.</p>
+            </div>
+            <div class="card">
+              <h3>Android</h3>
+              <p>Usually built with <strong>Kotlin</strong> or <strong>Jetpack Compose</strong>.</p>
+            </div>
+            <div class="card">
+              <h3>Web</h3>
+              <p>Built with <strong>HTML</strong>, <strong>CSS</strong>, and <strong>JavaScript</strong>.</p>
+            </div>
+            <div class="card">
+              <h3>Cross-platform</h3>
+              <p><strong>React Native</strong>, <strong>Flutter</strong>, and <strong>PWAs</strong> aim to reuse more code.</p>
+            </div>
+          </div>
+          <div class="quote-panel">
+            <p>
+              If you want the easiest thing to share, start on the web. If you need a real phone app, think about whether native or cross-platform makes more sense.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <div class="kicker">Stores</div>
+          <h2>App Store Reality Check</h2>
+          <div class="grid-2">
+            <div class="grid-2">
+              <div class="card metric">
+                <div class="metric-number">$99</div>
+                <div class="metric-label">Apple Developer Program per year</div>
+              </div>
+              <div class="card metric">
+                <div class="metric-number">$25</div>
+                <div class="metric-label">Google Play registration one time</div>
+              </div>
+            </div>
+            <ul class="clean-list">
+              <li>Apple App Store distribution requires the paid Apple developer program.</li>
+              <li>Google Play now expects more verification and testing for brand-new personal accounts.</li>
+              <li>Both stores need screenshots, descriptions, privacy details, and review-ready submissions.</li>
+            </ul>
+          </div>
+          <p class="tiny">Current summary slide content prepared on April 14, 2026.</p>
+        </section>
+
+        <section>
+          <div class="kicker">Testing</div>
+          <h2>How Apps Reach Testers First</h2>
+          <div class="pathway">
+            <div class="step">
+              <small>Apple</small>
+              <p><strong>TestFlight</strong> is used for beta testing with internal and external testers.</p>
+            </div>
+            <div class="step">
+              <small>Google</small>
+              <p><strong>Internal</strong>, <strong>closed</strong>, <strong>open</strong>, and <strong>production</strong> tracks exist in Play Console.</p>
+            </div>
+            <div class="step">
+              <small>Important</small>
+              <p>New personal Google Play accounts need a <strong>closed test with at least 12 opted-in testers for 14 days</strong> before production release.</p>
+            </div>
+          </div>
+          <div class="quote-panel">
+            <p>
+              Testing is where real life shows up: weird devices, unclear instructions, login issues, permissions, and bugs you did not expect.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <div class="kicker">Workflow</div>
+          <h2>What Building with AI Actually Looks Like</h2>
+          <div class="timeline">
+            <div class="timeline-step">
+              <span>1</span>
+              <p>Pick one specific problem.</p>
+            </div>
+            <div class="timeline-step">
+              <span>2</span>
+              <p>Ask AI for the smallest useful first version.</p>
+            </div>
+            <div class="timeline-step">
+              <span>3</span>
+              <p>Generate code, layout, or automation logic.</p>
+            </div>
+            <div class="timeline-step">
+              <span>4</span>
+              <p>Test what breaks, feels awkward, or seems confusing.</p>
+            </div>
+            <div class="timeline-step">
+              <span>5</span>
+              <p>Revise, repeat, and keep your own judgment in the loop.</p>
+            </div>
+          </div>
+          <div class="grid-2" style="margin-top: 1rem;">
+            <div class="card">
+              <h3>AI helps a lot</h3>
+              <p>It can brainstorm, draft code, explain errors, and suggest design directions very quickly.</p>
+            </div>
+            <div class="card">
+              <h3>But it is not magic</h3>
+              <p>You still need patience, testing, decisions, and the ability to notice when something is wrong.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="kicker">Reality</div>
+          <h2>Hurdles and Unexpected Things</h2>
+          <div class="grid-2">
+            <ul class="clean-list">
+              <li>Store rules and account verification</li>
+              <li>Permissions and privacy prompts</li>
+              <li>AI giving code that is close, but not quite right</li>
+            </ul>
+            <ul class="clean-list">
+              <li>Different behavior across devices or browsers</li>
+              <li>Edge cases you did not think about</li>
+              <li>Projects taking longer than the first draft suggests</li>
+            </ul>
+          </div>
+          <div class="quote-panel">
+            <p>
+              The goal is not to avoid every hurdle. The goal is to keep learning, adjusting, and shipping useful things anyway.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <div class="kicker">Closing</div>
+          <h2>Questions</h2>
+          <p class="question">What problem in your life would you want to fix with AI?</p>
+          <div class="grid-3" style="margin-top: 1.2rem;">
+            <div class="card">
+              <h3>Maybe a website</h3>
+              <p>A simple page students can open anywhere.</p>
+            </div>
+            <div class="card">
+              <h3>Maybe a script</h3>
+              <p>A quiet automation that saves time every day.</p>
+            </div>
+            <div class="card">
+              <h3>Maybe an app</h3>
+              <p>Something bigger that grows from a small first version.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script>
+      Reveal.initialize({
+        hash: true,
+        controls: true,
+        progress: true,
+        center: true,
+        transition: "slide",
+        backgroundTransition: "fade",
+        width: 1280,
+        height: 720,
+        margin: 0.06
+      });
+    </script>
+  </body>
+</html>

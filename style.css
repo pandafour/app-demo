@@ -58,6 +58,24 @@ body::before {
   font-weight: 700;
 }
 
+.hero-link {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--primary-dark);
+  border: 1px solid rgba(124, 45, 18, 0.12);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.hero-link:hover {
+  background: white;
+}
+
 h1 {
   margin: 0;
   font-family: "Space Grotesk", sans-serif;
