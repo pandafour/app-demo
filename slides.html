@@ -120,6 +120,19 @@
 
       .title-panel {
         padding: 2rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .title-panel::after {
+        content: "";
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        right: -40px;
+        top: -40px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 209, 102, 0.55), rgba(255, 209, 102, 0));
       }
 
       .title-art {
@@ -345,6 +358,55 @@
         margin-top: 1rem;
       }
 
+      .tool-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+      }
+
+      .tool-badge {
+        display: inline-block;
+        margin-bottom: 0.7rem;
+        padding: 0.3rem 0.7rem;
+        border-radius: 999px;
+        background: rgba(38, 70, 83, 0.08);
+        color: var(--teal);
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .sparkle-row {
+        display: flex;
+        gap: 0.7rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .sparkle {
+        width: 18px;
+        height: 18px;
+        border-radius: 6px;
+        transform: rotate(20deg);
+      }
+
+      .sparkle.one {
+        background: var(--gold);
+      }
+
+      .sparkle.two {
+        background: var(--sky);
+      }
+
+      .sparkle.three {
+        background: var(--berry);
+      }
+
+      .sparkle.four {
+        background: var(--mint);
+      }
+
       .tiny {
         font-size: 0.8rem;
         color: var(--muted);
@@ -419,8 +481,10 @@
           display: grid;
         }
 
-        .title-art {
+        .title-art,
+        .tool-grid {
           min-height: 240px;
+          grid-template-columns: 1fr;
         }
       }
     </style>
@@ -437,6 +501,12 @@
               <p>
                 How AI can help turn a small idea into a website, script, or app.
               </p>
+              <div class="sparkle-row">
+                <div class="sparkle one"></div>
+                <div class="sparkle two"></div>
+                <div class="sparkle three"></div>
+                <div class="sparkle four"></div>
+              </div>
               <p class="tiny">Use arrow keys or spacebar to move through the deck.</p>
             </div>
             <div class="title-art">
@@ -590,6 +660,33 @@
           <div class="quote-panel fragment fade-up">
             <p>
               Testing is where you find the weird bugs, confusing parts, and stuff that did not work the way you thought.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <div class="kicker">Tools</div>
+          <h2>Which AI Coding Tools Can You Use?</h2>
+          <div class="tool-grid">
+            <div class="card accent-warm fragment fade-up">
+              <div class="tool-badge">Codex</div>
+              <h3>Good for making</h3>
+              <p>Helpful when you want AI to build, fix, or explain code with you.</p>
+            </div>
+            <div class="card accent-cool fragment fade-up">
+              <div class="tool-badge">Claude</div>
+              <h3>Good for thinking</h3>
+              <p>Nice for planning, writing, and talking through ideas step by step.</p>
+            </div>
+            <div class="card accent-pop fragment fade-up">
+              <div class="tool-badge">Gemini</div>
+              <h3>Good for exploring</h3>
+              <p>Can help with ideas, code, and looking things up across Google tools.</p>
+            </div>
+          </div>
+          <div class="quote-panel fragment fade-up">
+            <p>
+              The best tool is the one that helps you start. You can ask any of them for ideas, code, bug fixes, or better wording.
             </p>
           </div>
         </section>
